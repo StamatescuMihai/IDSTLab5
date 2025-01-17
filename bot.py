@@ -23,6 +23,7 @@ import code         # code.interact
 import os           # environment variables
 import inspect      # call stack inspection
 import random       # dumb random number generator
+import argparse
  
 from discord.ext import commands    # Bot class and utils
  
@@ -167,6 +168,10 @@ if __name__ == '__main__':
     if 'BOT_TOKEN' not in os.environ:
         log_msg('save your token in the BOT_TOKEN env variable!', 'error')
         exit(-1)
- 
+    parser = argparse.ArgumentParser(prog='PyBot')
+    parser.add_argument('-t', '--token', help='uses the specified token')
+    args = parser.parse_args()
+    if args.token:
+        os.environ['BOT_TOKEN'] = args.token
     # launch bot (blocking operation)
     bot.run(os.environ['BOT_TOKEN'])
